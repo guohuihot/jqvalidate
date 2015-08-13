@@ -1,0 +1,77 @@
+
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>jqvalidate_表单验证_jqduang.com</title>
+	<meta name="keywords" content="jqduang,jqvalidate,jqmodal,jqgallery,jqfixed,jqsimulation"/>
+	<meta name="description" content="Mr.jqDuang,前端特效,用少的代码做多的效果,复杂的问题交给我来做,您只要轻轻一行代码就行！"/>
+	<link rel="stylesheet" href="../css/global.css">
+<style type="text/css">
+body {margin: 0;background: none;}
+
+.tip i {}
+</style>
+</head>
+
+<body>
+
+<div class="effect-wrap-inner">
+	<h2>demo表单 <span class="gren tipinfo"></span></h2>
+	<form name="validateForm1" action="###" data-tipmode="1" class="jqvalidate" method="get">
+		<dl>
+			<dt>表单项</dt>
+			<dd>
+				<div id="moniter1"></div>
+				<input type="text" id="fun" data-type="*" name="tel" class="txt" /><span>标签1 </span><span> 标签2</span>
+			</dd>
+			<dt>submit</dt>
+			<dd>
+				<input type="submit" class="submit" disabled="disabled" value="提交"/>
+				<input type="reset" class="submit"/>
+			</dd>
+		</dl>
+	</form>
+	<div class="result"></div>
+</div>
+<script src="js/jquery.js"></script>
+<script src="js/jqvalidate.js?201505203"></script>
+<script type="text/javascript">
+
+	 var o = {}
+	 , aParam = location.href.split('?')[1].split('&');
+
+	 $.each(aParam, function(a, b) {
+	 	b = b.split('=');
+	 	b[1] && (o[b[0]] = decodeURIComponent(b[1]));
+	 })
+	 $('#fun').data(o);
+	 $('form').jqValidate();
+	 
+    $('.jqValidate').each(function(i, el) {
+        $(el).find('input[type="reset"]').click(function() {
+            $(el).jqValidate('resetForm')
+        });
+    });
+</script>
+<div class="dn">
+	<script>
+	var _hmt = _hmt || [];
+	(function() {
+	  var hm = document.createElement("script");
+	  hm.src = "//hm.baidu.com/hm.js?b2e33c0312c7235a7e13b0cf86eec840";
+	  var s = document.getElementsByTagName("script")[0]; 
+	  s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+
+</div>
+<!-- 
+
+ FcgidBusyTimeout 1200000
+ FcgidIOTimeout 1200000
+ FcgidIdleTimeout 1200000
+ FcgidConnectTimeout 1200000
+
+ -->
+</body>
+</html>

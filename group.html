@@ -1,0 +1,74 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>jqValidate_表单验证_jqduang.com</title>
+    <meta name="keywords" content="jqduang,jqValidate,jqmodal,jqgallery,jqfixed,jqsimulation"/>
+    <meta name="description" content="Mr.jqDuang,前端特效,用少的代码做多的效果,复杂的问题交给我来做,您只要轻轻一行代码就行！"/>
+    <link rel="stylesheet" href="../css/global.css">
+<style type="text/css">
+body {margin: 0;}
+.posturl{float: left;margin-top: 20px;background:#eee;padding: 10px;}
+dl {float: left;}
+
+dt {float: left; width: 100px; text-align: right;padding: 5px;}
+dt span {color: red;}
+dt i{font-size: 12px;font-style: normal;}
+input {border: 1px solid #ddd;padding: 5px;}
+input[data-group] {width: 50px;}
+.submit{padding: 5px 20px;cursor:pointer;}
+dd {margin-left: 110px;font-size: 12px;padding: 5px;vertical-align: top;}
+select{padding: 3px;}
+textarea{padding: 5px;display: inline-block;}
+
+.tip i {}
+</style>
+</head>
+
+<body>
+    <form name="validateForm1" action="###" class="jqValidate" data-tipmode="2" method="get">
+    <dl>
+        <dt> 户型1 <span>*</span> </dt>
+        <dd>
+            <input type="text" data-type="n" data-init="请填写室" data-error="请填写室1" data-group="hx"/>
+            <label>室</label>
+            <input type="text" data-type="n" data-init="请填写厅" data-group="hx"/>
+            <label>厅</label>
+            <input type="text" data-type="n" data-init="请填写卫" data-offset="1" data-group="hx"/>
+            <label>卫</label>
+        </dd>
+        <dt> 户型2 <span>*</span> </dt>
+        <dd>
+            <select data-type="*" data-error="请选择室" data-group="hx2">
+                <option value="">室</option>
+                <option value="1">1室</option>
+                <option value="2">2室</option>
+            </select>
+            <select data-type="*" data-error="请选择厅" data-group="hx2">
+                <option value="">厅</option> 
+                <option value="1">1厅</option>   
+                <option value="2">2厅</option>   
+            </select>
+            <select data-type="*" data-error="请选择卫" data-group="hx2">
+                <option value="">卫</option> 
+                <option value="1">1卫</option>   
+                <option value="2">2卫</option>   
+            </select>
+        </dd>
+        <dt>submit</dt>
+        <dd>
+            <input type="submit" class="submit" disabled="disabled" value="提交"/>
+            <input type="reset" class="submit"/>
+        </dd>
+    </dl>
+</form>
+<script src="js/jquery.js"></script>
+<script src="js/jqValidate.js?201505203"></script>
+<script type="text/javascript">
+    $('.jqValidate').each(function(i, el) {
+        $(el).find('input[type="reset"]').click(function() {
+            $(el).jqValidate('resetForm')
+        });
+    });
+</script>
+</body>
+</html>

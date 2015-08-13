@@ -1,0 +1,820 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>jqValidate_表单验证_jqduang.com</title>
+    <meta name="keywords" content="jqduang,jqValidate,jqmodal,jqgallery,jqfixed,jqsimulation"/>
+    <meta name="description" content="Mr.jqDuang,前端特效,用少的代码做多的效果,复杂的问题交给我来做,您只要轻轻一行代码就行！"/>
+    <link rel="stylesheet" href="../css/global.css">
+<style type="text/css">
+body {margin: 0;}
+.posturl{float: left;margin-top: 20px;background:#eee;padding: 10px;}
+dl {float: left;}
+
+dt {float: left; width: 100px; text-align: right;padding: 5px;}
+dt span {color: red;}
+dt i{font-size: 12px;font-style: normal;}
+input {border: 1px solid #ddd;padding: 5px;}
+input[data-group] {width: 50px;}
+.submit{padding: 5px 20px;cursor:pointer;}
+dd {margin-left: 110px;font-size: 12px;padding: 5px;vertical-align: top;}
+select{padding: 3px;}
+textarea{padding: 5px;display: inline-block;}
+
+.tip i {}
+</style>
+</head>
+
+<body class="bg">
+<div class="wrap">
+    <nav class="sub-nav cf">
+        <ul>
+            <li><a class="act" href="#demo">Demo</a></li>
+            <li><a href="#howtouse">如何使用</a></li>
+            <li><a href="#param">插件参数</a></li>
+            <li><a href="#download">下载插件</a></li>
+            <li><a href="#question">常见问题</a></li>
+            <li><a href="#commus">一起交流</a></li>
+        </ul>
+    </nav>
+    <section id="demo" class="active page">
+        
+        <article class="area">
+            <div class="effect-wrap w50p">
+                <iframe width="100%" height="230" name="register" frameborder="0" scrolling="no"></iframe>
+            </div>
+            <div class="config-wrap w50p">
+                <h2>配置选项</h2>
+                <!-- 表单 -->
+                <form action="register.html" method="get" target="register">
+                    <ul>
+                        <li>
+                            <label>验证方式(vadmode)</label>
+                            <select name="vadmode">
+                                <option data-tipinfo="当input,seclect,textarea失去焦点时验证" value="0">0=失焦验证</option> 
+                                <option data-tipinfo="提交表单是逐个验证并提示，默认为批量验证" value="1">1=逐个验证</option>
+                                <option data-tipinfo="当input,textarea输入内容时直接验证" value="2">2=实时验证</option>
+                            </select>
+                        </li>
+                        <li>
+                            <label>提交按钮(submit)</label>
+                            <select name="submit">
+                                <option data-tipinfo="点击“.button1”按钮时提交表单，默认为type='submit'的按钮" value=".button1">.button1</option>   
+                                <option data-tipinfo="点击“.button2”按钮时提交表单，默认为type='submit'的按钮" value=".button2">.button2</option>   
+                            </select>
+                        </li>
+                        <li class="nowrap">
+                            <label>提示方式(tipmode)</label>
+                            <select name="tipmode">
+                                <option data-tipinfo="初始化时不显示提示信息" value="">0=不显示</option>  
+                                <option data-tipinfo="初始化时显示提示信息" value="1">1=直接显示</option> 
+                                <option data-tipinfo="当input,seclect,textarea聚焦时显示提示信息" value="2">2=聚焦时显示</option>
+                                <option data-tipinfo="将提示信息显示在一个指定的标签里" value=".s-tip">.s-tip=指定标签</option> 
+                            </select>
+                        </li>
+                        <li class="nowrap">
+                            <label>提示框模板(tipTpl)</label>
+                            <select name="tipTpl">
+                                <option data-tipinfo="$1表示内容" value='$1'>默认</option>    
+                                <option data-tipinfo="<i>$1</i>替换为‘<i>内容</i>’" value='<i>$1</i>'>&lt;i&gt;$1&lt;/i&gt;</option>
+                            </select>
+                        </li>
+                    </ul>
+                    <input type="submit" class="btn dn" value="提交"/>
+                </form>
+                
+                <!-- /表单 -->
+            </div>
+            
+        </article>
+        <article class="area">
+            <div class="form w50p">
+                <iframe width="100%" height="230" name="single" frameborder="0" scrolling="no"></iframe>
+            </div>
+            <div class="config-wrap w50p">
+                <h2>配置选项</h2>
+                <!-- 表单 -->
+                <form action="single.html" method="get" target="single">
+                    <ul>
+                        <li>
+                            <label>验证类型(type)</label>
+                            <select name="type">
+                                <option data-tipinfo="必填，任意字符" value="*">*</option>     
+                                <option data-tipinfo="6-16任意字符" value="*6-16">*6-16</option>        
+                                <option data-tipinfo="必填数字" value="n">n</option>        
+                                <option data-tipinfo="6-16数字" value="n6-16">n6-16</option>      
+                                <option data-tipinfo="任意字符（不含特殊字符）" value="s">s</option>        
+                                <option data-tipinfo="6-16任意字符（不含特殊字符）" value="s6-16">s6-16</option>        
+                                <option data-tipinfo="验证邮编" value="p">p</option>        
+                                <option data-tipinfo="验证手机" value="m">m</option>        
+                                <option data-tipinfo="验证邮箱" value="e">e</option>        
+                                <option data-tipinfo="验证网址" value="url">url</option>        
+                                <option data-tipinfo="直接用表达式，输入纯数字验证通过" value="/^\d+$/">/^\d+$/</option>        
+                            </select>
+                        </li>
+                        <li>
+                            <label>非必填验证(ignore)</label>
+                            <select name="ignore">
+                                <option data-tipinfo="默认null" value="">0</option>   
+                                <option data-tipinfo="开始不验证，有内容时才验证"value="1">1</option>    
+                            </select>
+                        </li>
+                        <li>
+                            <label>提示框偏移(offset)</label>
+                            <select name="offset">
+                                <option data-tipinfo="提示框直接在验证项的后面" value="">0</option> 
+                                <option data-tipinfo="提示框在验证项后第1个元素之后" value="1">1</option> 
+                                <option data-tipinfo="提示框在验证项后第2个元素之后" value="2">2</option> 
+                            </select>
+                        </li>
+                        <li>
+                            <label>实时提示(monitor)</label>
+                            <select name="monitor">
+                                <option data-tipinfo="正常提示" value="">0</option> 
+                                <option data-tipinfo="在提示框里实时提示输入多少个字符" value="1">1</option>    
+                                <option data-tipinfo="在id为“moniter1”标签里实时提示输入多少个字符" value="#moniter1">#moniter1</option>    
+                            </select>
+                        </li>
+                        <li>
+                            <label>ajax(url)</label>
+                            <select name="url">
+                                <option data-tipinfo="不启用ajax验证" value="">0</option>    
+                                <option data-tipinfo="启用ajax验证，脚本tel.php，输入13423045270验证通过" value="tel.php">tel.php</option>    
+                            </select>
+                        </li>
+                    </ul>
+                    <input type="submit" class="btn dn" value="提交"/>
+                </form>
+                
+                <!-- /表单 -->
+            </div>
+            
+        </article>
+        <article class="area">
+            <div class="effect-wrap w50p">
+                <h2>选择表单</h2>
+                <form name="validateForm1" action="###" class="jqValidate" data-tipmode="1" method="get">
+                    <dl>
+                        <dt> 你是coder吗 <span>*</span> </dt>
+                        <dd>
+                            <input type="radio" name="radio" value="1" data-option="radio" data-type="1" data-init="这里是初始提示！<a href='###' style='color:#3192D6'>查看帮助</a>" data-pass="这里是验证通过！" data-error="这里是验证失败！" data-offset="1" id="radio1"/>                
+                            <label for="radio1">是</label>
+                            <input type="radio" name="radio" data-option="radio" value="2" id="radio2"/>
+                            <label for="radio2">不是</label>
+                        </dd>
+                        <dt> 你的爱好 <span>*</span> </dt>
+                        <dd>
+                            <input type="checkbox" name="checkbox1" data-option="checkbox" data-type="-2" data-offset="1" value="1" id="checkbox1"/>
+                            <label for="checkbox1"> 看代码 </label>
+                            <input type="checkbox" name="checkbox2" data-option="checkbox" value="2" id="checkbox2"/>
+                            <label for="checkbox2"> 写代码 </label>
+                            <input type="checkbox" name="checkbox3" data-option="checkbox" value="3" id="checkbox3"/>
+                            <label for="checkbox3"> 看代码和写代码 </label>
+                        </dd>
+                        <dt> 你感兴趣 <span>*</span> </dt>
+                        <dd>
+                            <input type="checkbox" name="checkboxm1" data-option="checkboxm" data-type="2" data-offset="1"  value="1" id="checkboxm1"/>
+                            <label for="checkboxm1"> 看代码 </label>
+                            <input type="checkbox" name="checkboxm2" data-option="checkboxm" value="2" id="checkboxm2"/>
+                            <label for="checkboxm2"> 写代码 </label>
+                            <input type="checkbox" name="checkboxm3" data-option="checkboxm" value="3"id="checkboxm3"/>
+                            <label for="checkboxm3"> 看代码和写代码 </label>
+                        </dd>
+                        <dt>submit</dt>
+                        <dd>
+                            <input type="submit" class="submit" disabled="disabled" value="提交"/>
+                            <input type="reset" class="submit"/>
+                        </dd>
+                    </dl>
+                </form>
+                <div class="result"></div>
+            </div>
+            <div class="effect-wrap w50p">
+                <h2>分组表单</h2>
+                <form name="validateForm1" action="###" class="jqValidate" data-tipmode="2" method="get">
+                    <dl>
+                        <dt> 户型1 <span>*</span> </dt>
+                        <dd>
+                            <input type="text" data-type="n" data-init="请填写室" data-error="请填写室1" data-group="hx"/>
+                            <label>室</label>
+                            <input type="text" data-type="n" data-init="请填写厅" data-group="hx"/>
+                            <label>厅</label>
+                            <input type="text" data-type="n" data-init="请填写卫" data-offset="1" data-group="hx"/>
+                            <label>卫</label>
+                        </dd><!-- 
+                        <dd>
+                            <input type="text" data-type="n" data-init="请填写室" data-group="hx"/>
+                            <label>室</label>
+                            <input type="text" data-type="n" data-init="请填写厅" data-group="hx"/>
+                            <label>厅</label>
+                            <input type="text" data-type="n" data-init="请填写卫" data-offset="1" data-group="hx"/>
+                            <label>卫</label>
+                        </dd> -->
+                        <dt> 户型2 <span>*</span> </dt>
+                        <dd>
+                            <select data-type="*" data-error="请选择室" data-group="hx2">
+                                <option value="">室</option>
+                                <option value="1">1室</option>
+                                <option value="2">2室</option>
+                            </select>
+                            <select data-type="*" data-error="请选择厅" data-group="hx2">
+                                <option value="">厅</option> 
+                                <option value="1">1厅</option>   
+                                <option value="2">2厅</option>   
+                            </select>
+                            <select data-type="*" data-error="请选择卫" data-group="hx2">
+                                <option value="">卫</option> 
+                                <option value="1">1卫</option>   
+                                <option value="2">2卫</option>   
+                            </select>
+                        </dd>
+                        <dt>submit</dt>
+                        <dd>
+                            <input type="submit" class="submit" disabled="disabled" value="提交"/>
+                            <input type="reset" class="submit"/>
+                        </dd>
+                    </dl>
+                </form>
+                <div class="result"></div>
+            </div>
+            <div class="blank10"></div>
+            <div class="effect-wrap w50p">
+                <h2>点评表单</h2>
+                <form name="validateForm1" id="dpform" action="###" class="jqValidate" method="get">
+                    <dl>
+                        <dt> username <span>*</span> </dt>
+                        <dd>
+                            <input type="text" data-type="*" data-monitor="1" name="username" class="txt" />
+                        </dd>
+                        <dt> select <span>*</span> </dt>
+                        <dd>
+                            <select data-type="*" name="select">
+                                <option value>请选择一项</option>
+                                <option value="1">选项1</option>
+                                <option value="2">选项2</option>
+                                <option value="3">选项3</option>
+                            </select>
+                        </dd>
+                        <dt> textarea <span>*</span> </dt>
+                        <dd>
+                            <textarea data-type="s6-20" name="textarea"></textarea>
+                        </dd>
+                        <dt> textarea <span>*</span> <br/><i>自定义tip</i></dt>
+                        <dd>
+                            <div id="textarea-tip"></div>
+                            <textarea data-type="s5-100" data-monitor="#textarea-tip" name="textarea1"></textarea>
+                        </dd>
+                        <dt>submit</dt>
+                        <dd>
+                            <input type="submit" class="submit" disabled="disabled" value="提交"/>
+                            <input type="reset" class="submit"/>
+                            <input type="button" class="clear" value="clearResult"/>
+                            <div id="tip"></div>
+                        </dd>
+                    </dl>
+                </form>
+                <div class="result"></div>
+            </div>
+        </article>
+    </section>
+    <section id="howtouse" class="page">
+            <article class="area">
+                <!-- <h2>如何使用</h2> -->
+                <div class="param-instruction">
+
+1. 引入jquery库: 该插件为jquery库的插件, 版本为1.7以上
+<textarea data-language="html"><script type="text/javascript" src="http://你的域名/js/jquery.js"></script></textarea>
+2. 引入插件本身:
+<textarea data-language="html"><script type="text/javascript" src="http://你的域名/js/jqValidate.js"></script></textarea>
+3. 插件启用:
+<h3 class="colde-hd">方式1 : 从dom启用 </h3>
+<textarea data-language="html">
+<form name="validateForm1" id="reg-form" action="###" method="get" class="jqValidate" data-vadmode="0" data-submit=".button" data-tipmode="0" >
+    <dl>
+        <dt> username <span>*</span> </dt>
+        <dd>
+            <input type="text" data-type="*3-10" data-monitor="1" name="username" class="txt" />
+        </dd>
+        <dt> password <span>*</span> </dt>
+        <dd>
+            <input type="password" data-type="*3-8" class="password" name="password"/>
+        </dd>
+        <dt> tel <span>*</span> </dt>
+        <dd>
+            <input type="text" data-type="m" class="tel" name="tel"/>
+        </dd>
+        <dt> 验证码(1234) <span>*</span> </dt>
+        <dd>
+            <input type="text" size="4" data-type="*0-4" data-url="tel.php" data-offset="1" class="regcode" id="regcode" name="regcode"/>
+            <button id="regcode-btn" data-btn=".tel" type="button">点击获取验证码</button>
+        </dd>
+        <dt>submit</dt>
+        <dd>
+            <input type="submit" class="button1" disabled="disabled" value="button1"/>
+            <input type="reset" class="submit"/>
+            <div class="s-tip"></div>
+        </dd>
+    </dl>
+</form>
+</textarea>
+<h3 class="colde-hd">方式2 : js调用</h3>
+<textarea data-language="html">
+<form name="validateForm1" id="reg-form" action="###" method="get" class="jqValidate">
+    <dl>
+        <dt> username <span>*</span> </dt>
+        <dd>
+            <input type="text" data-type="*3-10" data-monitor="1" name="username" class="txt" />
+        </dd>
+        <dt> password <span>*</span> </dt>
+        <dd>
+            <input type="password" data-type="*3-8" class="password" name="password"/>
+        </dd>
+        <dt> tel <span>*</span> </dt>
+        <dd>
+            <input type="text" data-type="m" class="tel" name="tel"/>
+        </dd>
+        <dt> 验证码(1234) <span>*</span> </dt>
+        <dd>
+            <input type="text" size="4" data-type="*0-4" data-url="tel.php" data-offset="1" class="regcode" id="regcode" name="regcode"/>
+            <button id="regcode-btn" data-btn=".tel" type="button">点击获取验证码</button>
+        </dd>
+        <dt>submit</dt>
+        <dd>
+            <input type="submit" class="button1" disabled="disabled" value="button1"/>
+            <input type="reset" class="submit"/>
+            <div class="s-tip"></div>
+        </dd>
+    </dl>
+</form>
+</textarea>
+js代码
+<textarea data-language="javascript">
+$('#reg-form').jqValidate({
+    vadmode   : 0
+    , submit  : '.button'
+    , tipmode : 0
+})
+</textarea>
+                </div>    
+            </article>
+    </section>
+    <section id="param" class="page">
+            <article class="area">
+                <!-- <h2>插件参数</h2> -->
+                <div class="param-detail">
+                    <table cellspacing="1" cellpadding="0">
+                        <tr>
+                            <th>总参数</th>
+                            <th>默认值</th>
+                            <th>版本</th>
+                            <th>说明</th>
+                            <th>详细</th>
+                        </tr>
+                        <tr>
+                            <td>vadmode</td>
+                            <td>0</td>
+                            <td>1.0</td>
+                            <td><span class="fcr">(必须)</span>验证方式:<br>
+                                 0 = 失焦验证 | 1 = 逐个验证 | 2 = 实时验证<br>
+                                使用: {vadmode:0}
+                            </td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>tipmode</td>
+                            <td>0</td>
+                            <td>1.0</td>
+                            <td><span class="fcr">(必须)</span>提示方式:<br>
+                                0 = 不显示 | 1 = 直接显示 | 2 = 聚焦显示 |  expr = 指定一个标签显示提示信息(些时验证方式为逐个验证)<br>
+                                使用: {tipmode:0}
+                            </td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>tipTpl</td>
+                            <td>$</td>
+                            <td>1.0</td>
+                            <td><span class="fcr">(必须)</span>提示信息的模板:<br>
+                                使用时插件会将'$'替换为提示信息, 例如: 模板为
+<textarea data-language="html">
+    <div>
+        <span class="t"></span>
+        <span class="m">$</span>
+        <span class="b"></span>
+    </div>
+</textarea>
+提示信息为
+<textarea data-language="html">
+    <div>
+        <span class="t"></span>
+        <span class="m">验证码错误</span>
+        <span class="b"></span>
+    </div>
+</textarea>
+                                使用: {tipTpl : '$'}
+                            </td>
+                            <td>&nbsp;</td>
+                        </tr><tr>
+                            <td>submit</td>
+                            <td>[type="submit"]</td>
+                            <td>1.0</td>
+                            <td><span class="fcr">(必须)</span>提交表单的点击按钮:<br>
+                                默认值为submit, 可以指定其它<br>
+                                使用: {submit : '.submit'}
+                            </td>
+                            <td>&nbsp;</td>
+                        </tr>
+
+                        <tr>
+                            <th>单项参数</th>
+                            <th>默认值</th>
+                            <th>版本</th>
+                            <th>说明(该参数是对表单里的表单项的设置)</th>
+                            <th>详细</th>
+                        </tr>
+
+                        <tr>
+                            <td>vadmode</td>
+                            <td>0</td>
+                            <td>1.0</td>
+                            <td>验证方式:<br>
+                                0 = 失焦验证 | 2 = 实时验证<br>
+                                说明: 这个参数总设置里有, 如果这个设置插件会优先按单个参数设置处理
+                                使用: 
+<textarea data-language="html"><input type="text" data-vadmode="0"></textarea>
+                            </td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>tipmode</td>
+                            <td>0</td>
+                            <td>1.0</td>
+                            <td>验证方式:<br>
+                                说明: 这个参数总设置里有, 如果这个设置插件会优先按单个参数设置处理<br>
+                                0 = 不显示 | 1 = 直接显示 | 2 = 聚焦显示<br>
+                                使用: 
+<textarea data-language="html"><input type="text" data-tipmode="0"></textarea>
+                            </td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>type</td>
+                            <td>-</td>
+                            <td>1.0</td>
+                            <td><span class="fcr">(必须)</span>验证类型:<br>
+                            input类型: * | *6-16 | n | n6-16 | s | s6-18 | p | m | e | url<br>
+                            (任意值 | 6-16个任意值 | 数字 | 6-16个数字 | 字符 | 6-18个字符 | 邮编 | 手机 | 邮箱 | 链接)><br>
+                            值里面的数字可以改变,如下表示允许输入3-15个任意值
+<textarea data-language="html"><input type="text" data-type="*3-15"/></textarea>
+                            复选框类型: number 直接在第一个选项上加设置,正数:至少,负数:至多,如下至少选择2项<br>
+<textarea data-language="html"><input type="checkbox" data-type="2"/><input type="checkbox"/><input type="checkbox" /></textarea>
+                            如下至多选择2项
+<textarea data-language="html"><input type="checkbox" data-type="-2"/><input type="checkbox"/><input type="checkbox" /></textarea>
+                            regexp: 直接用表达式验证,如下必须输入数字
+<textarea data-language="html"><input type="text" data-type="/^\d+$/"/></textarea>
+                            </td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>init</td>
+                            <td>-</td>
+                            <td>1.0</td>
+                            <td>初始提示信息:<br>
+                                说明: 默认不设置,插件会自动判断显示插件内置的提示,填写后会优先使用自定义的<br>
+                                使用: 
+<textarea data-language="html"><input type="text" data-init="这里是初始提示信息"/></textarea>
+                            </td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>error</td>
+                            <td>-</td>
+                            <td>1.0</td>
+                            <td>验证失败的提示信息:<br>
+                                说明: 默认不设置,填写后会优先使用自定义的<br>
+                                使用: 
+<textarea data-language="html"><input type="text" data-init="验证码错误"/></textarea>
+                            </td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>pass</td>
+                            <td>-</td>
+                            <td>1.0</td>
+                            <td>验证通过的提示信息:<br>
+                                说明: 默认不设置,填写后会优先使用自定义的<br>
+                                使用: 
+<textarea data-language="html"><input type="text" data-init="验证通过"/></textarea>
+                            </td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>offset</td>
+                            <td>-</td>
+                            <td>1.0</td>
+                            <td>提示信息的偏移位置:<br>
+                                说明: 默认不设置, 有时我们不希望提示信息直接在表单项的后面, 而是要偏移表单项后几个, 可以设置这个<br>
+                                使用: 如下提示信息会跟在button的后面,而不是跟在.search的后面
+<textarea data-language="html"><input type="text" class="search" data-offset="2"/><input type="text" /><button></button></textarea>
+                            </td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>ignore</td>
+                            <td>-</td>
+                            <td>1.0</td>
+                            <td>忽略验证:<br>
+                                说明: 有时可能不需要必填,但又需要验证类型,可以设置这个值<br>
+                                使用: 邮箱不是必填,但要验证输入的必须是邮箱
+<textarea data-language="html"><input type="text" class="search" data-type="e" data-ignore="1"/></textarea>
+                            </td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>recheck</td>
+                            <td>-</td>
+                            <td>1.0</td>
+                            <td>重复验证:<br>
+                                说明: 一般用于注册表单的重复密码验证,其设置值为要重复验证的表单的name值<br>
+                                使用: 
+<textarea data-language="html">
+ 密码：<input type="text" name="password" class="search" data-type="*3-15"/>
+ 重复密码：<input type="text" name="password2" class="search" recheck="password"/>
+</textarea>                               
+                            </td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>option</td>
+                            <td>-</td>
+                            <td>1.0</td>
+                            <td>单选多选唯一标识:<br>
+                                说明: 这个是必选项,一组单选(多选)按钮,用同一个标识,且这这个标识是唯一的(类似于radio的name,一组单选按钮name是一样的)<br>
+                                使用: 
+<textarea data-language="html">
+<input type="checkbox" class="text1" data-type="*3-15" data-option="chk"/>
+<input type="checkbox" class="text2" data-type="*3-15" data-option="chk"/>
+<input type="checkbox" class="text3" data-type="*3-15" data-option="chk"/>
+</textarea>                               
+                            </td>
+                            <td><a href="http://www.jqduang.com/jqvalidate/group.html" target="_blank">实例</a></td>
+                        </tr>
+                        <tr>
+                            <td>group</td>
+                            <td>-</td>
+                            <td>1.0</td>
+                            <td>表单分组:<br>
+                                说明: 有时几个表单项是横着排列的, 只需要一个提示信息放这一排的后面,这时需要用到表单项分组,这一组表单项的group值必须是一样的,且和其它group值不能一样<br>
+                                使用: 
+<textarea data-language="html">
+<input type="text" class="text1" data-type="*3-15" data-group="tag"/>
+<input type="text" class="text2" data-type="*3-15" data-group="tag"/>
+<input type="text" class="text3" data-type="*3-15" data-group="tag"/>
+</textarea>                               
+                            </td>
+                            <td><a href="http://www.jqduang.com/jqvalidate/group.html" target="_blank">实例</a></td>
+                        </tr>
+                        <tr>
+                            <td>monitor</td>
+                            <td>-</td>
+                            <td>1.0</td>
+                            <td>监控提示:<br>
+                                说明:  1 : 直接在提示框显示提示内容 | expr : 对应的标签里面显示提示内容<br>
+                                使用: <br>
+在输入时提示框显示'还可以输入n个字符',不输入时提示框仍显示验证的提示信息
+<textarea data-language="html">
+<input type="text" class="search" data-type="*3-15" data-monitor="1"/>
+</textarea>                    
+在.monitor标题里显示'还可以输入n个字符'
+<textarea data-language="html">
+<input type="text" class="search" data-type="*3-15" data-monitor=".monitor"/>
+<span class="monitor"></span>
+</textarea>                                
+                            </td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>url</td>
+                            <td>-</td>
+                            <td>1.0</td>
+                            <td>ajax验证时的链接:<br>
+                                说明:  验证时插件会请求服务器返回数据，按数据进行验证，默认返回数据的格式：{"result":"error","info": "验证失败"}，result：结果，info:提示信息<br>
+                                使用: <br>
+<textarea data-language="html">
+<input type="text" class="search" data-url="http://www.jqduang.com/jqvalidate/tel.php"/>
+</textarea>                    
+                            </td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        
+                        <tr>
+                            <th>方法</th>
+                            <th>默认值</th>
+                            <th>版本</th>
+                            <th>说明(由于下列方法需要传参数，所以插件设计时，没有设计成直接调用方法，而是用回调函数来处理，具体怎么用，请往下看)</th>
+                            <th>详细</th>
+                        </tr>
+                        
+                        <tr>
+                            <td>setTip(el, c, i)</td>
+                            <td>-</td>
+                            <td>1.0</td>
+                            <td>设置提示信息:<br>
+                                el:要设置的表单项，c:样式（init|pass|error|ajax）, i: 提示的内容（这个随便你怎么写了）
+                                例如：动态改变input的提示信息；
+<textarea data-language="javascript">
+// form是初始化的表单
+$('form').jqValidate(function(v){
+// v 就是验证对象，方法全部是在v的下面
+v.setTip('input', 'pass', '验证已经通过了') //
+})
+</textarea> 
+                            </td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>validate(el)</td>
+                            <td>-</td>
+                            <td>1.0</td>
+                            <td>验证方法，可以用于手动验证单个表单项,el:要验证的表单项(el不设置时，验证整个表单)，返回值（true|false）成功|失败<br>
+                            例如：要手动验证input；
+<textarea data-language="javascript">
+// form是初始化的表单
+$('form').jqValidate(function(v){
+    // v 就是验证对象，方法全部是在v的下面
+    var res = v.validate('input');
+    if (res) {
+       // 验证成功
+    }
+    else {
+       // 验证失败
+    }
+})
+// 上面都需要传参数的,如果验证整个表单,我们可以这样
+
+$('form').jqValidate('validate');
+// 也可以下面这样写,这两种写法是等价的
+$('form').jqValidate(function(e) {
+    e.validate()
+})
+</textarea> 
+                            </td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>resetForm(el)</td>
+                            <td>-</td>
+                            <td>1.0</td>
+                            <td>重置表单:可以重置单个表单项,el:要重置的表单项(el不设置时，重置整个表单)<br> 例如：要重置的input；
+<textarea data-language="javascript">
+// form是初始化的表单
+$('form').jqValidate(function(v){
+    // v 就是验证对象，方法全部是在v的下面
+    v.resetForm('input');
+})
+// 上面都需要传参数的，如果没有参数我们就可以直接使用方法，例如重置整个表单
+
+$('form').jqValidate('resetForm');
+// 也可以下面这样写,这两种写法是等价的
+$('form').jqValidate(function(v) {
+    v.resetForm()
+})
+</textarea> 
+                            </td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        
+                        <tr>
+                            <th>事件</th>
+                            <th>默认值</th>
+                            <th>版本</th>
+                            <th>说明</th>
+                            <th>详细</th>
+                        </tr>
+                        <tr>
+                            <td>validatePass</td>
+                            <td>-</td>
+                            <td>1.0</td>
+                            <td>表单验证通过后的动作，可作ajax提交:<br>
+                                例如： <br/>
+<textarea data-language="javascript">
+$('form').on('validatePass', function(){
+// 这里写ajax请求
+})
+</textarea>   
+                                
+                            </td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>ajaxDone</td>
+                            <td>-</td>
+                            <td>1.0</td>
+                            <td>对单个表单项的ajax验证时,有时返回的结果不是默认的格式{"result":"error","info": "验证失败"}，可能是{"res":"error","msg": "验证失败"}，这样就可以用这个方法处理自定义结果:<br>
+<textarea data-language="javascript">
+$('input').on('ajaxDone', function(r, fn){
+    // r ajax的结果
+    if (r.res == '1234') {
+        // 验证成功
+        fn('pass', r.msg)
+    } 
+    else {
+        // 验证失败
+        fn('error', r.msg)
+    }
+})
+</textarea>   
+再来个例子,返回的结果可能是,1:成功,0:失败;(也可能是其它的,反正r就是结果,拿着它随便判断就行,最后用fn来设置验证结果)<br>
+<textarea data-language="javascript">
+$('input').on('ajaxDone', function(r, fn){
+    // r ajax的结果
+    if (r == 1) {
+        // 验证成功
+        fn('pass', '验证成功')
+    } 
+    else {
+        // 验证失败
+        fn('error', '验证失败')
+    }
+})
+</textarea>  
+                            </td>
+                            <td>&nbsp;</td>
+                        </tr>
+                    </table>
+                </div>
+            </article>
+        </section>
+    <section id="download" class="page">
+        <article class="area">
+            <h2>下载插件</h2>
+            <div class="">
+                压缩版本 <a href="http://www.jqduang.com/jqValidate/js/jqvalidate.js" target="_blank">jqvalidate.js</a> (7.78k)
+            </div>
+        </article>
+    </section>
+    <section id="question" class="page">
+        <article class="area">
+            <h2>常见问题</h2>
+            常见问题 
+        </article>
+    </section>
+    <section id="commus" class="page">
+        <div class="blank0"></div>
+    </section>
+</div>
+<script src="js/jquery.js"></script>
+<script src="js/jqValidate.js?201505203"></script>
+<script src="../js/common.js?201505203"></script>
+<script src="../js/rainbow.min.js?201505203"></script>
+<script type="text/javascript">
+    $('.jqValidate').each(function(i, el) {
+        $(el).find('input[type="reset"]').click(function() {
+            $(el).jqValidate('resetForm')
+        });
+    });
+</script>
+<div class="wrap">
+    <article class="area">
+        <script type="text/javascript">
+            var uyan_config = {
+                 'title':'jqvalidate'
+                , 'url':'http://www.jqduang.com/jqvalidate'
+                , 'du':'jqduang.com'
+                , 'su':'jqvalidate' 
+            };
+        </script>
+        <!-- UY BEGIN -->
+        <div id="uyan_frame"></div>
+        
+<script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2026484"></script>
+        
+        <!-- UY END -->
+    </article><!-- /留言 -->
+</div>
+<div class="footer tac">        
+    jqDuang, jqValidate, jqModal, jqGallery, jqFixed, jqSimulation <br/>
+    Copyright ©2013 jqduang.com
+</div><!-- /footer -->
+<div class="dn">
+    <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?b2e33c0312c7235a7e13b0cf86eec840";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+
+</div>
+<!-- 
+
+ FcgidBusyTimeout 1200000
+ FcgidIOTimeout 1200000
+ FcgidIdleTimeout 1200000
+ FcgidConnectTimeout 1200000
+
+ -->
+</body>
+</html>

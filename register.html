@@ -1,0 +1,87 @@
+
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>jqvalidate_表单验证_jqduang.com</title>
+	<meta name="keywords" content="jqduang,jqvalidate,jqmodal,jqgallery,jqfixed,jqsimulation"/>
+	<meta name="description" content="Mr.jqDuang,前端特效,用少的代码做多的效果,复杂的问题交给我来做,您只要轻轻一行代码就行！"/>
+	<link rel="stylesheet" href="../css/global.css">
+<style type="text/css">
+.tip i {}
+</style>
+</head>
+
+<body>
+
+<div class="effect-wrap-inner">
+	<h2><a href="http://www.jqduang.com/jqvalidate/" target="_blank"><span class="fr">查看更多效果</span>表单验证</a></h2>
+	<form name="validateForm1" id="reg-form" action="###" class="jqvalidate" method="get">
+		<dl>
+			<dt> username <span>*</span> </dt>
+			<dd>
+				<input type="text" data-type="*3-10" data-monitor="1" name="username" class="txt" />
+			</dd>
+			<dt> password <span>*</span> </dt>
+			<dd>
+				<input type="password" data-type="*3-8" class="password" name="password"/>
+			</dd>
+			<dt> tel <span>*</span> </dt>
+			<dd>
+				<input type="text" data-type="m" class="tel" name="tel"/>
+			</dd>
+			<dt> 验证码(1234) <span>*</span> </dt>
+			<dd>
+				<input type="text" size="4" data-type="*0-4" data-url="tel.php" data-offset="1" class="regcode" id="regcode" name="regcode"/>
+				<button id="regcode-btn" type="button">点击获取验证码</button>
+			</dd>
+			<dt>submit</dt>
+			<dd>
+				<input type="submit" class="button1" disabled="disabled" value="button1"/>
+				<input type="submit" class="button2" disabled="disabled" value="button2"/>
+				<input type="reset" class="submit"/>
+				<div class="s-tip"></div>
+			</dd>
+		</dl>
+	</form>
+	<div class="result"></div>
+</div>
+<script src="js/jquery.js"></script>
+<script src="js/jqvalidate.js?201505203"></script>
+<script type="text/javascript">
+console.log(location.href);
+	 var o = {}
+	 , aParam = location.href.split('?')[1].split('&');
+
+	 $.each(aParam, function(a, b) {
+	 	b = b.split('=');
+	 	b[1] && (o[b[0]] = decodeURIComponent(b[1]));
+	 })
+	 $('form').jqValidate(o)
+
+	 $('#regcode-btn').click(function (e) {
+	 	$('form').jqValidate(function (v) {
+	 		v.validate($('.tel')[0]) && alert('短信已发送您的手机上');
+	 	})
+	 })
+
+	$('.jqValidate').on('validatePass', function () {
+		alert('结果:\n' + $(this).serialize().replace(/&/g, '\n'))
+	})
+    $('.jqValidate').each(function(i, el) {
+        $(el).find('input[type="reset"]').click(function() {
+            $(el).jqValidate('resetForm')
+        });
+    });
+</script>
+
+
+<!-- 
+
+ FcgidBusyTimeout 1200000
+ FcgidIOTimeout 1200000
+ FcgidIdleTimeout 1200000
+ FcgidConnectTimeout 1200000
+
+ -->
+</body>
+</html>
