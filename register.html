@@ -64,14 +64,19 @@ console.log(location.href);
 	 	})
 	 })
 
+ 	$('#fun').on('validateFun', function () {
+		if (this.value == 5555) {
+			$(this).data('result', {r:'pass',i:'通过'});
+		}
+		else {
+			$(this).data('result', {r:'error',i:'错误'});
+		}
+	})
+
 	$('.jqValidate').on('validatePass', function () {
 		alert('结果:\n' + $(this).serialize().replace(/&/g, '\n'))
 	})
-    $('.jqValidate').each(function(i, el) {
-        $(el).find('input[type="reset"]').click(function() {
-            $(el).jqValidate('resetForm')
-        });
-    });
+
 </script>
 
 

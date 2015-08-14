@@ -308,9 +308,8 @@
             if (obj.o.tipmode.length > 1) _self.find(obj.o.tipmode).addClass('tip single');
             obj.$fmItems.each(function(i, ele) {
 
-                var $ele     = $(ele);
-                if ($ele.hasClass('inited')) return;
-                var $eleEx   = $ele.addClass('inited')
+                var $ele     = $(ele)
+                , $eleEx   = $ele
                 , eleData  = $ele.data()
                 , eleDType = eleData.type
                 , tipCls   = 'tip '
