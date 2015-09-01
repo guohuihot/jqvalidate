@@ -1,12 +1,14 @@
 /**
 * author : ahuing
 * date   : 2015-04-10
-* name   : jqValidate v1.0
-* modify : 2015-7-20 10:34:08
+* name   : jqValidate v1.02
+* modify : 2015-9-1 10:06:10
  */
 
 !function ($) {
     /*
+    v1.01 修复了插件各个方法的参数和jq的参数一致,可以是'#xxx'或者js对象
+    v1.02 改进了单个表单对象也可以指定提示框
     events 方法
         validatePass $('form').on('validatePass', function () { 验证通过后的动作 })
 
@@ -29,13 +31,6 @@
     */
     $('<link rel="stylesheet">').appendTo('head').attr('href', (typeof tplurl != 'undefined' ? tplurl : '') + 'css/jqvalidate.css');
 
-    // 获取tip
-    function getTip($ele, before) {
-        var oft = $ele.data().offset
-        , $before = oft && $ele.nextAll().length > 0 && ($ele.nextAll().eq(oft - 1)) || $ele;
-
-        return before && $before || $before.next();
-    }
 
     // 处理type表达式
     function setRegExp(obj, sType) {
@@ -122,15 +117,24 @@
         }
         // 设置tip
         , setTip : function (ele, cls, i) {
-            cls = cls || 'pass';
-            var $ele = $(ele),
-            eleData = $ele.data()
-            , opt = this.o
+            var $ele = $(ele)
+            , eleData = $ele.data();
+
+            // 获取tip
+            if (cls == 1 || typeof cls == 'undefined') {
+                var oft = eleData.offset
+                , $before = oft && $ele.nextAll().length > 0 && ($ele.nextAll().eq(oft - 1)) || $ele;
+
+                return cls && $before || eleData.tipmode && eleData.tipmode.length > 1 && $(eleData.tipmode) || $before.next();
+            }
+
+            var opt = this.o
+            // ele = $ele[0];
             // 元素上自定义 || 手动传进来的 || 默认
             , info = eleData[cls] || i || this.regTips[cls]
             , $eleGroup = eleData.group && this._self.find('.' + eleData.group);
             
-            var $tip = opt.tipmode.length > 1 && this._self.find(opt.tipmode) || $eleGroup || getTip($ele);
+            var $tip = opt.tipmode.length > 1 && this._self.find(opt.tipmode) || $eleGroup || this.setTip($ele);
             $tip.html(opt.tipTpl.replace('$1', info)).add(ele).removeClass('error pass ajax').addClass(cls);
 
             return cls == 'pass';
@@ -152,7 +156,7 @@
                     return;
                 }
                 // 初始化tip
-                var $tip = getTip($eleEx).removeClass('error init monitor pass ajax')
+                var $tip = this.setTip($eleEx).removeClass('error init monitor pass ajax')
                     .addClass(this.o.tipmode == 1 && !eleData.ignore && 'init' || '')
                     .html(this.o.tipTpl.replace('$1', eleData.init));
                 var sMonitor = eleData.monitor;
@@ -169,12 +173,13 @@
             , eleDType  = eleData.type
             , eleDTypeT = $.type(eleDType)
             , _self     = this._self;
-
+            // 获取js对象方便后面使用
+            ele = $ele[0];
             // 为空
             if (!ele.value) {
                 return eleData.ignore && this.resetForm(ele) || this.setTip(ele, 'error', eleData['init']);
             }
-            else if (ele.type == 'select-one') return this.setTip(ele);
+            else if (ele.type == 'select-one') return this.setTip(ele, 'pass');
 
             // type是数字 checkbox radio
             if (!isNaN(eleDType)) {
@@ -193,7 +198,7 @@
                 if (/\/.+\//.test(eleDType)) eleRegex = eval(eleDType);
 
                 // 进行两次密码验证
-                if (eleData.recheck) return ele.value === _self[0][eleData.recheck].value && this.setTip(ele) || this.setTip(ele, 'error', this.regTips.recheck);
+                if (eleData.recheck) return ele.value === _self[0][eleData.recheck].value && this.setTip(ele, 'pass') || this.setTip(ele, 'error', this.regTips.recheck);
 
                 // 未通过
                 if (!eleRegex.test(ele.value.replace(/[^\x00-\xff]/g,'aa'))) return this.setTip(ele, 'error', this.regTips.w[eleDType]);
@@ -237,7 +242,7 @@
                     return;
                 }
             }
-           return this.setTip(ele);
+           return this.setTip(ele, 'pass');
         }
         , validateForm : function () {
             var _self = this._self;
@@ -308,7 +313,7 @@
             if (obj.o.tipmode.length > 1) _self.find(obj.o.tipmode).addClass('tip single');
             obj.$fmItems.each(function(i, ele) {
 
-                var $ele     = $(ele)
+                var $ele   = $(ele)
                 , $eleEx   = $ele
                 , eleData  = $ele.data()
                 , eleDType = eleData.type
@@ -337,8 +342,9 @@
                 };
                 // 初始化tip
                 if (obj.o.tipmode <= 2) {
-                    if(obj.o.tipmode == 1 && !eleData.ignore) tipCls += ' init';
-                    var $tip = $('<div class="' + tipCls + '">' + obj.o.tipTpl.replace('$1', tipInfo) + '</div>').insertAfter(getTip($eleEx, 1));
+                    if (obj.o.tipmode == 1 && !eleData.ignore) tipCls += ' init';
+                    var $tip = eleData.tipmode && eleData.tipmode.length > 1 && $(eleData.tipmode) || $('<div>').insertAfter(obj.setTip($eleEx, 1));
+                    $tip.addClass(tipCls).html(obj.o.tipTpl.replace('$1', tipInfo))
                 }
 
                 if (eleData.monitor) {
@@ -372,7 +378,7 @@
             .on('click', obj.o.submit, $.proxy(obj.validateForm, obj))
             // 回车提交
             .on('keypress', 'input[type="text"]', function(e){
-               if (e.keyCode == 13) return obj.validate()
+               if (e.keyCode == 13) return obj.validate();
             })
             // 下拉列表
             .on('change', 'select[data-type], [data-url]', function () {

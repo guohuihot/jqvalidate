@@ -63,5 +63,13 @@ textarea{padding: 5px;display: inline-block;}
 </form>
 <script src="js/jquery.js"></script>
 <script src="js/jqValidate.js?201505203"></script>
+<script type="text/javascript">
+    $('.jqValidate').each(function(i, el) {
+        $(el).find('input[type="reset"]').click(function() {
+            $(el).jqValidate('resetForm')
+        });
+    });
+</script>
+
 </body>
 </html>

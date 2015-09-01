@@ -46,6 +46,9 @@ body {margin: 0;background: none;}
 	 })
 	 $('#fun').data(o);
 	 $('form').jqValidate();
+	 $('input[type="reset"]').click(function () {
+	 	$('form').jqValidate('resetForm')
+	 });
 </script>
 
 <div class="dn">

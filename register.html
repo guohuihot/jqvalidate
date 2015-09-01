@@ -1,4 +1,3 @@
-
 <html>
 <head>
 	<meta charset="utf-8">
@@ -76,6 +75,10 @@ console.log(location.href);
 	$('.jqValidate').on('validatePass', function () {
 		alert('结果:\n' + $(this).serialize().replace(/&/g, '\n'))
 	})
+	.find('input[type="reset"]').click(function() {
+        $('.jqValidate').jqValidate('resetForm')
+    });
+
 
 </script>
 
