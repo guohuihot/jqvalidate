@@ -2,14 +2,22 @@
 * author : ahuing
 * date   : 2015-04-10
 * name   : jqValidate v1.03
+<<<<<<< HEAD
 * modify : 2015-9-15 16:30:54
+=======
+* modify : 2015-9-4 21:33:41
+>>>>>>> 2d48921bec57424be24bb69ecc504fcbdd42c14e
  */
 
 !function ($) {
     /*
     v1.01 修复了插件各个方法的参数和jq的参数一致,可以是'#xxx'或者js对象
     v1.02 改进了单个表单对象也可以指定提示框
+<<<<<<< HEAD
     v1.03 修复了单选框通过时提示错误
+=======
+    v1.03 为每个初始化的表单项加一个初始化的标识，初始化的表单项不再初始化
+>>>>>>> 2d48921bec57424be24bb69ecc504fcbdd42c14e
     events 方法
         validatePass $('form').on('validatePass', function () { 验证通过后的动作 })
 
@@ -312,9 +320,9 @@
             // document.title = obj.o.tipmode.length > 1;
             if (obj.o.tipmode.length > 1) _self.find(obj.o.tipmode).addClass('tip single');
             obj.$fmItems.each(function(i, ele) {
-
-                var $ele   = $(ele)
-                , $eleEx   = $ele
+                var $ele     = $(ele);
+                if ($ele.hasClass('inited')) return;
+                var $eleEx   = $ele.addClass('inited')
                 , eleData  = $ele.data()
                 , eleDType = eleData.type
                 , tipCls   = 'tip '
