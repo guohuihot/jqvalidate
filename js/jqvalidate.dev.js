@@ -1,14 +1,15 @@
 /**
 * author : ahuing
 * date   : 2015-04-10
-* name   : jqValidate v1.02
-* modify : 2015-9-1 10:06:10
+* name   : jqValidate v1.03
+* modify : 2015-9-15 16:30:54
  */
 
 !function ($) {
     /*
     v1.01 修复了插件各个方法的参数和jq的参数一致,可以是'#xxx'或者js对象
     v1.02 改进了单个表单对象也可以指定提示框
+    v1.03 修复了单选框通过时提示错误
     events 方法
         validatePass $('form').on('validatePass', function () { 验证通过后的动作 })
 
@@ -27,7 +28,6 @@
             string: "*" , "*6-16" , "n" , "n6-16" , "s" , "s6-18" , "p" , "m" , "e" , "url"
             number: 只对多选择有用
             regexp: 直接用表达式验证
-            function: 用函数验证  
     */
     $('<link rel="stylesheet">').appendTo('head').attr('href', (typeof tplurl != 'undefined' ? tplurl : '') + 'css/jqvalidate.css');
 
@@ -133,7 +133,6 @@
             // 元素上自定义 || 手动传进来的 || 默认
             , info = eleData[cls] || i || this.regTips[cls]
             , $eleGroup = eleData.group && this._self.find('.' + eleData.group);
-            
             var $tip = opt.tipmode.length > 1 && this._self.find(opt.tipmode) || $eleGroup || this.setTip($ele);
             $tip.html(opt.tipTpl.replace('$1', info)).add(ele).removeClass('error pass ajax').addClass(cls);
 
@@ -175,6 +174,7 @@
             , _self     = this._self;
             // 获取js对象方便后面使用
             ele = $ele[0];
+
             // 为空
             if (!ele.value) {
                 return eleData.ignore && this.resetForm(ele) || this.setTip(ele, 'error', eleData['init']);
@@ -188,7 +188,7 @@
 
                 if (eleData.ignore && checkNum == 0) return this.resetForm(ele);
                 if (eleDType < 0) rr = checkNum > -eleDType || checkNum == 0; 
-                return this.setTip(ele, rr && 'error', rr && eleData['init']);
+                return this.setTip(ele, rr && 'error' || 'pass', rr && eleData['init']);
             }
             // type字符串
             else if (eleDTypeT == 'string') {
